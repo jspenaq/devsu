@@ -1,0 +1,33 @@
+on:
+  push:
+    branches:
+      - '*'
+    branches-ignore:
+      - master
+
+name: 'Run testing on any other branch'
+jobs:
+  test:
+    name: Run all tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Test using Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Clean install and run jest on any other branch
+        run: |
+          npm ci
+          npm run test
+
+      - name: Tests ✅
+        if: ${{ success() }}
+        run: echo 'Succes :D'
+
+      - name: Tests 🚨
+        if: ${{ failure() }}
+        run: echo 'Failure :('
