@@ -3,7 +3,7 @@ on:
     branches:
       - master
 
-name: 'Run testing'
+name: 'Run testing on master'
 jobs:
   test:
     name: Run all tests
