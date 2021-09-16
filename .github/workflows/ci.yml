@@ -37,6 +37,10 @@ jobs:
         if: ${{ success() }}
         run: docker build . -t jspenaq/devsu:$(date +%s)
 
+      - name: Docker push
+        if: ${{ success() }}
+        run: docker push ${{ secrets.DOCKER_USER }}/devsu
+
       - name: Tests 🚨
         if: ${{ failure() }}
         run: echo 'Failure :('
