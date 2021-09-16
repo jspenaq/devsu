@@ -26,6 +26,17 @@ jobs:
         if: ${{ success() }}
         run: echo 'Success :D'
 
+      - name: Docker login
+        if: ${{ success() }}
+        env:
+          DOCKER_USER: ${{ secrets.DOCKER_USER }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+
+      - name: Build Docker image
+        if: ${{ success() }}
+        run: docker build . -t jspenaq/devsu:$(date +%s)
+
       - name: Tests 🚨
         if: ${{ failure() }}
         run: echo 'Failure :('
