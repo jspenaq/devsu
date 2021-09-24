@@ -35,7 +35,11 @@ jobs:
 
       - name: Build Docker image
         if: ${{ success() }}
-        run: docker build . -t jspenaq/devsu:$(date +%s)
+        run: docker build . -t jspenaq/devsu:latest
+
+      - name: Docker push
+        if: ${{ success() }}
+        run: docker push ${{ secrets.DOCKER_USER }}/devsu
 
       - name: Tests 🚨
         if: ${{ failure() }}
