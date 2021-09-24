@@ -2,7 +2,7 @@ pipeline {
   agent any
 
   tools { 
-    nodejs "latest"
+    nodejs 'Nodejs_14'
   }
 
   stages {
